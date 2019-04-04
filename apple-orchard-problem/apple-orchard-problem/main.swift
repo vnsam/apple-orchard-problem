@@ -20,28 +20,17 @@ public func solution(_ A : inout [Int], _ K : Int, _ L : Int) -> Int {
     var kCollectionsOfTress = [[Int]]()
     var lCollectionsOfTress = [[Int]]()
 
-    var biggerNumber = 0
-    var smallerNumber = 0
-
-    if K > L {
-        biggerNumber = K
-        smallerNumber = L
-    } else {
-        smallerNumber = K
-        biggerNumber = L
-    }
-
     var startIndex = 0
-    var tempArray: [Int] = trees.dropLast(trees.count - biggerNumber)
+    var tempArray: [Int] = trees.dropLast(trees.count - K)
 
 
     // K - done
-    while tempArray.count == biggerNumber {
+    while tempArray.count == K {
         kCollectionsOfTress.append(tempArray)
         startIndex += 1
         let leadingTrimmedArray = trees.dropFirst(startIndex)
-        if leadingTrimmedArray.count >= biggerNumber {
-            tempArray = leadingTrimmedArray.dropLast(leadingTrimmedArray.count - biggerNumber)
+        if leadingTrimmedArray.count >= K {
+            tempArray = leadingTrimmedArray.dropLast(leadingTrimmedArray.count - K)
         } else {
             tempArray = []
         }
@@ -67,21 +56,21 @@ public func solution(_ A : inout [Int], _ K : Int, _ L : Int) -> Int {
         }
     }
 
-    trees.removeFirst(removeIndex + biggerNumber)
+    trees.removeFirst(removeIndex + K)
     print("Trees after removing: \(trees)")
 
     // Reset - temp array, start index
     startIndex = 0
     let uniqueLeftTreesArray = trees
 
-    tempArray = uniqueLeftTreesArray.dropLast(uniqueLeftTreesArray.count - smallerNumber)
+    tempArray = uniqueLeftTreesArray.dropLast(uniqueLeftTreesArray.count - L)
 
-    while tempArray.count == smallerNumber {
+    while tempArray.count == L {
         lCollectionsOfTress.append(tempArray)
         startIndex += 1
         let leadingTrimmedArry = uniqueLeftTreesArray.dropFirst(startIndex)
-        if leadingTrimmedArry.count >= smallerNumber {
-            tempArray = leadingTrimmedArry.dropLast(leadingTrimmedArry.count - smallerNumber)
+        if leadingTrimmedArry.count >= L {
+            tempArray = leadingTrimmedArry.dropLast(leadingTrimmedArry.count - L)
         } else {
             tempArray = []
         }
